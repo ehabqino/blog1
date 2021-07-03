@@ -10,6 +10,7 @@ define(['ojs/ojcore','jquery','knockout'],
             }//end constructor
             
             addClass(id,title,description){
+                console.log(title);
 
             }//end addClass
 
