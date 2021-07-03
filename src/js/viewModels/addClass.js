@@ -1,5 +1,5 @@
-define(['ojs/ojcore','knockout','jquery','ojs/ojinputtext'], 
-function(oj,ko,$) {
+define(['ojs/ojcore','knockout','jquery','models/class.model','ojs/ojinputtext'], 
+function(oj,ko,$,classModel) {
     function addClassViewModel(){
         //Attributes,Properties,variables,Fields
         this.id = ko.observable();
