@@ -43,7 +43,7 @@ define(['ojs/ojcore','jquery','knockout'],
                 classRow.save(null,{
                     type: "POST",
                     success : function(model,response,options){
-                        notify(response);
+                        notify(response.name);
                     },
                     //xhr = xml http request , can be use any name for example x
                     error : function(modle,xhr,options){
