@@ -14,7 +14,7 @@ function(oj,ko,$,classModel) {
             // alert(res);
 
             classModel.addClass(self.id(),self.title(),self.description(),function(x){
-                alert(x);
+                alert("Added Successfuly " + x);
             });
             
         };

@@ -29,7 +29,7 @@ define(['ojs/ojcore','jquery','knockout'],
                });
                let classCollDef = oj.Collection.extend({
                    url : url_api,
-                   model : classModel,
+                   model : classModelDef,
                    comparator : "id"
                });
                let classes = new classCollDef; //all data set here
@@ -38,8 +38,18 @@ define(['ojs/ojcore','jquery','knockout'],
                    "title":title,
                    "description":description
                },classes);
-            
-                
+
+               //AJAX (Take Time)
+                classRow.save(null,{
+                    type: "POST",
+                    success : function(model,response,options){
+                        notify(response);
+                    },
+                    //xhr = xml http request , can be use any name for example x
+                    error : function(modle,xhr,options){
+                        notify(xhr);
+                    }
+                });
             }//end addClass
 
             updateClass(id,title,description){
