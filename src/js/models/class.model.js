@@ -9,9 +9,15 @@ define(['ojs/ojcore','jquery','knockout'],
 
             }//end constructor
             
-            addClass(id,title,description){
+            addClass(id,title,description,notify){
                 console.log(title);
-
+                //Operations with database
+                let x = "wait";
+                setTimeout(() => {
+                    x="finished";
+                    notify(x);
+                }, 1000);
+                
             }//end addClass
 
             updateClass(id,title,description){

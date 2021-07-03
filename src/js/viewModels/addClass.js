@@ -10,7 +10,13 @@ function(oj,ko,$,classModel) {
         //Function , Methods, Procedures
         self.addClass = (event)=> {
             //alert("Add Class Button Clicked");
-            classModel.addClass(self.id(),self.title(),self.description());
+            // res=classModel.addClass(self.id(),self.title(),self.description());
+            // alert(res);
+
+            classModel.addClass(self.id(),self.title(),self.description(),function(x){
+                alert(x);
+            });
+            
         };
 
 
