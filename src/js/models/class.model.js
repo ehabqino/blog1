@@ -10,13 +10,35 @@ define(['ojs/ojcore','jquery','knockout'],
             }//end constructor
             
             addClass(id,title,description,notify){
-                console.log(title);
+                /*console.log(title);
                 //Operations with database
                 let x = "wait";
                 setTimeout(() => {
                     x="finished";
                     notify(x);
                 }, 1000);
+                */
+               
+               // Collection = Table(Rows)
+               // Model = Row
+               // Collection is a group of Rows
+               let url_api = this.classendpoint + ".json";
+               let classModelDef = oj.Model.extend({
+                   url : url_api,
+                   idAttribute : "id"
+               });
+               let classCollDef = oj.Collection.extend({
+                   url : url_api,
+                   model : classModel,
+                   comparator : "id"
+               });
+               let classes = new classCollDef; //all data set here
+               let classRow = new classModelDef({
+                   "id":id,
+                   "title":title,
+                   "description":description
+               },classes);
+            
                 
             }//end addClass
 
