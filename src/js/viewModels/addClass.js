@@ -14,7 +14,7 @@ function(oj,ko,$,classModel) {
             //alert("Add Class Button Clicked");
             // res=classModel.addClass(self.id(),self.title(),self.description());
             // alert(res);
-
+            classModel.getAllClasses((success,result)=>{console.log(result)});
             classModel.addClass(self.id(),self.title(),self.description(),function(success,msg){
                 //alert("Added Successfuly with id " + msg);
                 if(success){

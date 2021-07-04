@@ -62,7 +62,31 @@ define(['ojs/ojcore','jquery','knockout'],
 
             }//end deleteClass
             
-            getAllClasses(){
+            getAllClasses(notify){
+                let url_api = this.classendpoint + ".json";
+                let classModelDef = oj.Model.extend({
+                    url : url_api,
+                    idAttribute : "id"
+                });
+                let classCollDef = oj.Collection.extend({
+                    url : url_api,
+                    model : classModelDef,
+                    comparator : "id"
+                });
+                let classes = new classCollDef; //all data set here
+                let classRow = new classModelDef({},classes);
+
+               //AJAX (Take Time)
+                classRow.fetch({
+                        success : function(coll,data){
+                        notify(true,data);
+                    },
+                    //xhr = xml http request , can be use any name for example x
+                    error : function(modle,xhr,options){
+                        
+                        notify(false,`Error Code : ${xhr.status} , msg : ${options.textStatus}`);
+                    }
+                });
 
             }//end getAllClasses
 
