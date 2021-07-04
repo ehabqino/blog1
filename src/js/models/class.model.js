@@ -22,7 +22,7 @@ define(['ojs/ojcore','jquery','knockout'],
                // Collection = Table(Rows)
                // Model = Row
                // Collection is a group of Rows
-               let url_api = this.classendpoint + ".json";
+               let url_api = this.classendpoint +"/"+ id + ".json";
                let classModelDef = oj.Model.extend({
                    url : url_api,
                    idAttribute : "id"
@@ -41,9 +41,10 @@ define(['ojs/ojcore','jquery','knockout'],
 
                //AJAX (Take Time)
                 classRow.save(null,{
-                    type: "POST",
+                    type: "PUT",
                     success : function(model,response,options){
-                        notify(response.name);
+                        //notify(response.name);
+                        notify(response.id);
                     },
                     //xhr = xml http request , can be use any name for example x
                     error : function(modle,xhr,options){
