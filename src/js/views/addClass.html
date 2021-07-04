@@ -4,6 +4,14 @@
         <h4 class="oj-header-border">Add New Classification</h4>
         <div class="oj-flex">
             <div id="form-container">
+                <oj-dialog style="display: none;" id="msgDialog" dialog-title="[[msgTitle]]">
+                    <div slot="body">
+                        <oj-bind-text value="[[msgBody]]"></oj-bind-text>
+                    </div>
+                    <div slot="footer">
+                        <oj-button on-oj-action="[[closeDialog]]">OK</oj-button>
+                    </div>
+                </oj-dialog>
                 <div>
                     <oj-input-text value="{{id}}" label-hint="Class ID"></oj-input-text>
                 </div>
@@ -13,7 +21,7 @@
                 <div>
                     <oj-input-text value="{{description}}" label-hint="Description"></oj-input-text>
                 </div>
-                <oj-button on-oj-action="{{addClass}}">Add New Class</oj-button>
+                <oj-button on-oj-action="{{addClass}}">Save Class</oj-button>
             </div>
 
         </div>
