@@ -15,10 +15,16 @@ function(oj,ko,$,classModel) {
             // res=classModel.addClass(self.id(),self.title(),self.description());
             // alert(res);
 
-            classModel.addClass(self.id(),self.title(),self.description(),function(msg){
+            classModel.addClass(self.id(),self.title(),self.description(),function(success,msg){
                 //alert("Added Successfuly with id " + msg);
-                self.msgTitle("Success Message");
-                self.msgBody("Saved Successfuly with ID " + msg);
+                if(success){
+                    self.msgTitle("Success Message");
+                    self.msgBody("Saved Successfuly with ID " + msg);
+                } else {
+                    self.msgTitle("Erro Message");
+                    self.msgBody(msg);
+                }
+                
                 document.getElementById("msgDialog").open();
              
             });

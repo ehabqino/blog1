@@ -44,11 +44,12 @@ define(['ojs/ojcore','jquery','knockout'],
                     type: "PUT",
                     success : function(model,response,options){
                         //notify(response.name);
-                        notify(response.id);
+                        notify(true,response.id);
                     },
                     //xhr = xml http request , can be use any name for example x
                     error : function(modle,xhr,options){
-                        notify(xhr);
+                        
+                        notify(false,`Error Code : ${xhr.status} , msg : ${options.textStatus}`);
                     }
                 });
             }//end addClass
