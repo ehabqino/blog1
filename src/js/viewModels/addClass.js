@@ -9,6 +9,7 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
         self.description = ko.observable();
         self.msgTitle = ko.observable();
         self.msgBody = ko.observable();
+        self.showTable = ko.observable(true);
         self.allClasses = ko.observableArray([]); //empty array to fill it with data comes from model
         self.dataProvider = new ArrayDataProvider(self.allClasses,{
             keyAttributes:"id",
@@ -40,13 +41,21 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
                 document.getElementById("msgDialog").open();
              
             });
+            self.showTable(true);
             
         };//end addClass
 
         self.closeDialog = ()=> {
             document.getElementById("msgDialog").close();
         };//end closeDialog
+        
+        self.openAddButton = ()=>{
+            self.showTable(false);
+        };//end openAddButton
 
+        self.openTableButton = ()=> {
+            self.showTable(true);
+        }; //end openTableButton
 
     }
     return addClassViewModel;

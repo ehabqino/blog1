@@ -3,7 +3,11 @@
     <div class="oj-panel oj-bg-info-20">
         <h4 class="oj-header-border">Add New Classification</h4>
         <div class="oj-flex">
+        <oj-bind-if test="[[showTable()]]">
             <div id="tableContainer" style="width: 1px; min-width: 100%;">
+                <div style="text-align: right;">
+                    <oj-button id="openAdd" on-oj-action="[[openAddButton]]">Add New Classification</oj-button>
+                </div>
                 <oj-table id="classesTable" 
                         data="[[dataProvider]]"
                         selection-mode='{"row": "multiple", "column": "multiple"}'
@@ -31,6 +35,8 @@
                 </oj-table>
     
             </div>
+        </oj-bind-if>
+        <oj-bind-if test="[[!showTable()]]">
             <div id="form-container">
                 <oj-dialog style="display: none;" id="msgDialog" dialog-title="[[msgTitle]]">
                     <div slot="body">
@@ -50,7 +56,9 @@
                     <oj-input-text value="{{description}}" label-hint="Description"></oj-input-text>
                 </div>
                 <oj-button on-oj-action="{{addClass}}">Save Class</oj-button>
+                <oj-button id="openTable" on-oj-action="[[openTableButton]]">Cancel</oj-button>
             </div>
+        </oj-bind-if>
            
         </div>
         
