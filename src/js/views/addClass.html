@@ -26,19 +26,19 @@
             <div id="tableContainer">
                 <oj-table id="classesTable" 
                         data="[[dataProvider]]"
-                        selection-mode='{"row":"single" , "columns":"multiple"}'
+                        selection-mode='{"row":"single" , "column":"multiple"}'
                         dnd='{"reorder":{"columns":"enabled"}}'
                         scroll-policy='loadMoreOnScroll'
                         scroll-policy-options='{"fetchSize":20}'
                         style="width: 1px; min-width:100% "
                         columns='[
-                                    {"headerText":"ID#", field="id",
+                                    {"headerText":"ID#", "field"="id",
                                     "headerClassName":"oj-sm-only-hide",
                                     "className":"oj-sm-only-hide",
                                     "resizable":"disabled"},
-                                    {"headerText":"Title", field="title",
+                                    {"headerText":"Title", "field"="title",
                                     "resizable":"enabled"},
-                                    {"headerText":"Description", field="description",
+                                    {"headerText":"Description", "field"="description",
                                     "headerClassName":"oj-sm-only-hide",
                                     "className":"oj-sm-only-hide",
                                     "resizable":"enabled"}

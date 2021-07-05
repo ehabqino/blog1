@@ -78,7 +78,11 @@ define(['ojs/ojcore','jquery','knockout'],
                //AJAX (Take Time)
                 classRow.fetch({
                         success : function(coll,data){
-                        notify(true,data);
+                        var arrObjs = Object.entries(data).map((val)=>{
+                           return val[1];
+                        });
+                        //console.log(arrObjs);
+                        notify(true,arrObjs);
                     },
                     //xhr = xml http request , can be use any name for example x
                     error : function(modle,xhr,options){
