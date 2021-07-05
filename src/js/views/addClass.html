@@ -10,7 +10,7 @@
                 </div>
                 <oj-table id="classesTable" 
                         data="[[dataProvider]]"
-                        selection-mode='{"row": "multiple", "column": "multiple"}'
+                        selection-mode='{"row": "single", "column": "multiple"}'
                         dnd='{"reorder": {"columns": "enabled"}}'
                         scroll-policy='loadMoreOnScroll'
                         scroll-policy-options='{"fetchSize": 10}'
@@ -27,10 +27,20 @@
                         "field": "description",
                         "headerClassName": "oj-sm-only-hide",
                         "className": "oj-sm-only-hide",
-                        "resizable": "enabled"}
+                        "resizable": "enabled"},
+                        {"headerText": "Actions", 
+                        "headerStyle":"text-align:center;",
+                        "style": "text-align:center; padding:0px",
+                        "sortable":"disabled",
+                        "template":"actionsTemplate"}
                         ]'
+                        style="width: 1px; min-width: 100%;"
                         class='demo-table-container oj-bg-body'
                 >
+                <template slot="actionsTemplate" data-oj-as="cell">
+                    Cell Template
+
+                </template>
     
                 </oj-table>
     
