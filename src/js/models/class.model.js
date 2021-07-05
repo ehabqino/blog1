@@ -8,6 +8,21 @@ define(['ojs/ojcore','jquery','knockout'],
                 this.classendpoint = "https://python110-project1-blog-default-rtdb.firebaseio.com/classification";
 
             }//end constructor
+
+            initializeModelCollection(url_api){
+                const KEY = "id";
+                this.classModelDef = oj.Model.extend({
+                    url : url_api,
+                    idAttribute : KEY
+                });
+                this.classCollDef = oj.Collection.extend({
+                    url : url_api,
+                    model : this.classModelDef,
+                    comparator : KEY
+                });
+                this.classes = new this.classCollDef; //all data set here
+
+            }///end initializeModelCollection
             
             addClass(id,title,description,notify){
                 /*console.log(title);
@@ -23,16 +38,7 @@ define(['ojs/ojcore','jquery','knockout'],
                // Model = Row
                // Collection is a group of Rows
                let url_api = this.classendpoint +"/"+ id + ".json";
-               let classModelDef = oj.Model.extend({
-                   url : url_api,
-                   idAttribute : "id"
-               });
-               let classCollDef = oj.Collection.extend({
-                   url : url_api,
-                   model : classModelDef,
-                   comparator : "id"
-               });
-               let classes = new classCollDef; //all data set here
+               
                let classRow = new classModelDef({
                    "id":id,
                    "title":title,
