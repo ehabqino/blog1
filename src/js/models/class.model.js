@@ -8,15 +8,15 @@ define(['ojs/ojcore','jquery','knockout'],
                 this.classendpoint = "https://python110-project1-blog-default-rtdb.firebaseio.com/classification";
 
             }//end constructor
-
+    //==================================================================================================================//
             initializeModelCollection(url_api){
                 const KEY = "id";
-                //use this whit parameter to make it general and use it on class /this.classModelDef/
+                //use this whit parameter to make it general and use it on another place in class /this.classModelDef/
                 this.classModelDef = oj.Model.extend({
                     url : url_api,
                     idAttribute : KEY
                 });
-                //use this whit parameter to make it general and use it on class /this.classColllDef/
+                //use this whit parameter to make it general and use it on another place in class /this.classColllDef/
                 this.classCollDef = oj.Collection.extend({
                     url : url_api,
                     model : this.classModelDef,
@@ -25,7 +25,7 @@ define(['ojs/ojcore','jquery','knockout'],
                 this.classes = new this.classCollDef; //all data set here
 
             }///end initializeModelCollection
-            
+    //==================================================================================================================//
             addClass(id,title,description,notify){
                 /*console.log(title);
                 //Operations with database
@@ -35,17 +35,17 @@ define(['ojs/ojcore','jquery','knockout'],
                     notify(x);
                 }, 1000);
                 */
-               
+                
                // Collection = Table(Rows)
                // Model = Row
                // Collection is a group of Rows
-               let url_api = this.classendpoint +"/"+ id + ".json";
-               
-               let classRow = new classModelDef({
-                   "id":id,
-                   "title":title,
-                   "description":description
-               },classes);
+                let url_api = this.classendpoint +"/"+ id + ".json";
+                this.initializeModelCollection(url_api);
+                let classRow = new this.classModelDef({
+                    "id":id,
+                    "title":title,
+                    "description":description
+                },this.classes);
 
                //AJAX (Take Time)
                 classRow.save(null,{
@@ -61,7 +61,7 @@ define(['ojs/ojcore','jquery','knockout'],
                     }
                 });
             }//end addClass
-
+    //==================================================================================================================//
             updateClass(id,title,description){
 
             }//end updateClass
@@ -69,20 +69,11 @@ define(['ojs/ojcore','jquery','knockout'],
             deleteClass(id){
 
             }//end deleteClass
-            
+    //==================================================================================================================//         
             getAllClasses(notify){
                 let url_api = this.classendpoint + ".json";
-                let classModelDef = oj.Model.extend({
-                    url : url_api,
-                    idAttribute : "id"
-                });
-                let classCollDef = oj.Collection.extend({
-                    url : url_api,
-                    model : classModelDef,
-                    comparator : "id"
-                });
-                let classes = new classCollDef; //all data set here
-                let classRow = new classModelDef({},classes);
+                this.initializeModelCollection(url_api);
+                let classRow = new this.classModelDef({},this.classes);
 
                //AJAX (Take Time)
                 classRow.fetch({
@@ -97,7 +88,7 @@ define(['ojs/ojcore','jquery','knockout'],
                 });
 
             }//end getAllClasses
-
+    //==================================================================================================================//
             findClass(filterValue){
 
             }//end findClass
