@@ -78,10 +78,13 @@ define(['ojs/ojcore','jquery','knockout'],
                //AJAX (Take Time)
                 classRow.fetch({
                         success : function(coll,data){
-                        var arrObjs = Object.entries(data).map((val)=>{
-                           return val[1];
-                        });
-                        //console.log(arrObjs);
+                        /* var arrObjs = Object.entries(data).map((val)=>{
+                            return val[1];
+                        });*///use return if use curly bracket {}
+                        var arrObjs = Object.entries(data).map((val)=>(
+                            val[1]
+                        ));//don't use return if use parentheses () 
+                        console.log(arrObjs);
                         notify(true,arrObjs);
                     },
                     //xhr = xml http request , can be use any name for example x
