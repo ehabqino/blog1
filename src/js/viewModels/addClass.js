@@ -1,4 +1,5 @@
-define(['ojs/ojcore','knockout','jquery','models/class.model','ojs/ojarraydataprovider','ojs/ojinputtext','ojs/ojdialog','ojs/ojtable'], 
+define(['ojs/ojcore','knockout','jquery','models/class.model','ojs/ojarraydataprovider',
+'ojs/ojinputtext','ojs/ojdialog','ojs/ojtable'], 
 function(oj,ko,$,classModel,ArrayDataProvider) {
     function addClassViewModel(){
         self = this;
@@ -13,16 +14,19 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
             keyAttributes:"id",
             implicitSort:[{attribute : "id", direction:"ascending"}]
         });// to receive data to table in the view
+      
         //Function , Methods, Procedures
+        classModel.getAllClasses((success,result)=>{
+            console.log(result);
+            this.allClasses(result);
+            this.allClasses.valueHasMutated(); //Notify to subscribers (Refresh)
+        });
+
         self.addClass = (event)=> {
             //alert("Add Class Button Clicked");
             // res=classModel.addClass(self.id(),self.title(),self.description());
             // alert(res);
-            classModel.getAllClasses((success,result)=>{
-                console.log(result);
-                this.allClasses(result);
-                this.allClasses.valueHasMutated(); //Notify to subscribers (Refresh)
-            });
+           
             classModel.addClass(self.id(),self.title(),self.description(),function(success,msg){
                 //alert("Added Successfuly with id " + msg);
                 if(success){

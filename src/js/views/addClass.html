@@ -3,6 +3,34 @@
     <div class="oj-panel oj-bg-info-20">
         <h4 class="oj-header-border">Add New Classification</h4>
         <div class="oj-flex">
+            <div id="tableContainer" style="width: 1px; min-width: 100%;">
+                <oj-table id="classesTable" 
+                        data="[[dataProvider]]"
+                        selection-mode='{"row": "multiple", "column": "multiple"}'
+                        dnd='{"reorder": {"columns": "enabled"}}'
+                        scroll-policy='loadMoreOnScroll'
+                        scroll-policy-options='{"fetchSize": 10}'
+                        columns='[
+                        {"headerText": "ID", 
+                        "field": "id",
+                        "headerClassName": "oj-sm-only-hide",
+                        "className": "oj-sm-only-hide",
+                        "resizable": "enabled"},
+                        {"headerText": "Title", 
+                        "field": "title",
+                        "resizable": "enabled"},
+                        {"headerText": "Description", 
+                        "field": "description",
+                        "headerClassName": "oj-sm-only-hide",
+                        "className": "oj-sm-only-hide",
+                        "resizable": "enabled"}
+                        ]'
+                        class='demo-table-container oj-bg-body'
+                >
+    
+                </oj-table>
+    
+            </div>
             <div id="form-container">
                 <oj-dialog style="display: none;" id="msgDialog" dialog-title="[[msgTitle]]">
                     <div slot="body">
@@ -23,33 +51,10 @@
                 </div>
                 <oj-button on-oj-action="{{addClass}}">Save Class</oj-button>
             </div>
-            <div id="tableContainer">
-                <oj-table id="classesTable" 
-                        data="[[dataProvider]]"
-                        selection-mode='{"row":"single" , "column":"multiple"}'
-                        dnd='{"reorder":{"columns":"enabled"}}'
-                        scroll-policy='loadMoreOnScroll'
-                        scroll-policy-options='{"fetchSize":20}'
-                        style="width: 1px; min-width:100% "
-                        columns='[
-                                    {"headerText":"ID#", "field"="id",
-                                    "headerClassName":"oj-sm-only-hide",
-                                    "className":"oj-sm-only-hide",
-                                    "resizable":"disabled"},
-                                    {"headerText":"Title", "field"="title",
-                                    "resizable":"enabled"},
-                                    {"headerText":"Description", "field"="description",
-                                    "headerClassName":"oj-sm-only-hide",
-                                    "className":"oj-sm-only-hide",
-                                    "resizable":"enabled"}
-                        ]'
-                >
-
-                </oj-table>
-
-            </div>
-
+           
         </div>
+        
+
       
     </div>
   </div>
