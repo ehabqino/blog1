@@ -11,10 +11,12 @@ define(['ojs/ojcore','jquery','knockout'],
 
             initializeModelCollection(url_api){
                 const KEY = "id";
+                //use this whit parameter to make it general and use it on class /this.classModelDef/
                 this.classModelDef = oj.Model.extend({
                     url : url_api,
                     idAttribute : KEY
                 });
+                //use this whit parameter to make it general and use it on class /this.classColllDef/
                 this.classCollDef = oj.Collection.extend({
                     url : url_api,
                     model : this.classModelDef,
