@@ -64,11 +64,16 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
         };//end deleteAction
 
         self.editAction = (event,context)=>{
+            /*
             const rowID = context.item.data.id;
             const rowTitle = context.item.data.title;
             const rowDesc = context.item.data.description;
             alert("Row id : " + rowID + " rowTitle : " + rowTitle + " rowDesc : " + rowDesc);
-
+            */
+            self.id(context.item.data.id);
+            self.title(context.item.data.title);
+            self.description(context.item.data.description);
+            this.showTable(false);
         };//end editAction
     }
     return addClassViewModel;
