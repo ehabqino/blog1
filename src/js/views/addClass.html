@@ -1,7 +1,9 @@
 <div class="oj-hybrid-padding">
     <h1>Classification Area</h1>
     <div class="oj-panel oj-bg-info-20">
-        <h4 class="oj-header-border">Add New Classification</h4>
+        <h4 class="oj-header-border">
+            <oj-bind-text value="[[pageTitle]]"></oj-bind-text>
+        </h4>
         <div class="oj-flex">
         <oj-bind-if test="[[showTable()]]">
             <div id="tableContainer" style="width: 1px; min-width: 100%;">

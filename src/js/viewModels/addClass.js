@@ -11,6 +11,7 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
         self.msgBody = ko.observable();
         self.showTable = ko.observable(true);
         self.allClasses = ko.observableArray([]); //empty array to fill it with data comes from model
+        self.pageTitle = ko.observable("Classification List");
         self.dataProvider = new ArrayDataProvider(self.allClasses,{
             keyAttributes:"id",
             implicitSort:[{attribute : "id", direction:"ascending"}]
@@ -19,8 +20,8 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
         //Function , Methods, Procedures
         classModel.getAllClasses((success,result)=>{
             console.log(result);
-            this.allClasses(result);
-            this.allClasses.valueHasMutated(); //Notify to subscribers (Refresh)
+            self.allClasses(result);
+            self.allClasses.valueHasMutated(); //Notify to subscribers (Refresh)
         });
 
         self.addClass = (event)=> {
@@ -50,10 +51,12 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
         };//end closeDialog
         
         self.openAddButton = ()=>{
+            self.pageTitle("Add New Classification");
             self.showTable(false);
         };//end openAddButton
 
         self.openTableButton = ()=> {
+            self.pageTitle("Classification List");
             self.showTable(true);
         }; //end openTableButton
 
@@ -61,6 +64,7 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
                 //console.log(context.item.data.id);
                 const rowID = context.item.data.id;
                 alert("Delete Button of ID : "+rowID);
+                
         };//end deleteAction
 
         self.editAction = (event,context)=>{
@@ -70,10 +74,11 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
             const rowDesc = context.item.data.description;
             alert("Row id : " + rowID + " rowTitle : " + rowTitle + " rowDesc : " + rowDesc);
             */
+            self.pageTitle("Edit Classification Data");
             self.id(context.item.data.id);
             self.title(context.item.data.title);
             self.description(context.item.data.description);
-            this.showTable(false);
+            self.showTable(false);
         };//end editAction
     }
     return addClassViewModel;
