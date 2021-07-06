@@ -12,6 +12,8 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
         self.showTable = ko.observable(true);
         self.allClasses = ko.observableArray([]); //empty array to fill it with data comes from model
         self.pageTitle = ko.observable("Classification List");
+        self.idInputDisable = ko.observable(true);
+
         self.dataProvider = new ArrayDataProvider(self.allClasses,{
             keyAttributes:"id",
             implicitSort:[{attribute : "id", direction:"ascending"}]
@@ -28,7 +30,7 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
             //alert("Add Class Button Clicked");
             // res=classModel.addClass(self.id(),self.title(),self.description());
             // alert(res);
-           
+            let dialog = document.getElementById("msgDialog");
             classModel.addClass(self.id(),self.title(),self.description(),function(success,msg){
                 //alert("Added Successfuly with id " + msg);
                 if(success){
@@ -39,10 +41,11 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
                     self.msgBody(msg);
                 }
                 
-                document.getElementById("msgDialog").open();
+                dialog.open();
+                self.showTable(true);
              
             });
-            self.showTable(true);
+            
             
         };//end addClass
 
@@ -53,6 +56,8 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
         self.openAddButton = ()=>{
             self.pageTitle("Add New Classification");
             self.showTable(false);
+            self.idInputDisable(false);
+            
         };//end openAddButton
 
         self.openTableButton = ()=> {
@@ -79,6 +84,7 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
             self.title(context.item.data.title);
             self.description(context.item.data.description);
             self.showTable(false);
+            self.idInputDisable(true);
         };//end editAction
     }
     return addClassViewModel;
