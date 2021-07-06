@@ -5,8 +5,25 @@
             <oj-bind-text value="[[pageTitle]]"></oj-bind-text>
         </h4>
         <div class="oj-flex">
+            <oj-dialog style="display: none;" id="msgDialog" dialog-title="[[msgTitle]]">
+                <div slot="body">
+                    <oj-bind-text value="[[msgBody]]"></oj-bind-text>
+                </div>
+                <div slot="footer">
+                    <oj-button on-oj-action="[[closeDialog]]">OK</oj-button>
+                </div>
+            </oj-dialog>
         <oj-bind-if test="[[showTable()]]">
             <div id="tableContainer" style="width: 1px; min-width: 100%;">
+                <oj-dialog style="display: none;" id="deleteDialog" dialog-title="Delete Classification">
+                    <div slot="body">
+                        <oj-bind-text value="[[deleteMsgBody]]"></oj-bind-text>
+                    </div>
+                    <div slot="footer">
+                        <oj-button on-oj-action="[[closeDeleteDialog]]">Cancel</oj-button>
+                        <oj-button on-oj-action="[[okDeleteDialog]]">Yes , Remove</oj-button>
+                    </div>
+                </oj-dialog> 
                 <div style="text-align: right;">
                     <oj-button id="openAdd" on-oj-action="[[openAddButton]]">Add New Classification</oj-button>
                 </div>
@@ -59,14 +76,7 @@
         </oj-bind-if>
         <oj-bind-if test="[[!showTable()]]">
             <div id="form-container">
-                <oj-dialog style="display: none;" id="msgDialog" dialog-title="[[msgTitle]]">
-                    <div slot="body">
-                        <oj-bind-text value="[[msgBody]]"></oj-bind-text>
-                    </div>
-                    <div slot="footer">
-                        <oj-button on-oj-action="[[closeDialog]]">OK</oj-button>
-                    </div>
-                </oj-dialog>
+                
                 <div>
                     <oj-input-text disabled="[[idInputDisable]]" value="{{id}}" label-hint="Class ID"></oj-input-text>
                 </div>

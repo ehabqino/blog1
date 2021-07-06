@@ -13,6 +13,8 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
         self.allClasses = ko.observableArray([]); //empty array to fill it with data comes from model
         self.pageTitle = ko.observable("Classification List");
         self.idInputDisable = ko.observable(true);
+        self.deleteMsgBody = ko.observable("");
+        self.deleteDoc = ko.observable(); //hold the object we want to delete it
 
         self.dataProvider = new ArrayDataProvider(self.allClasses,{
             keyAttributes:"id",
@@ -53,6 +55,28 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
             document.getElementById("msgDialog").close();
         };//end closeDialog
         
+        self.closeDeleteDialog = ()=> {
+            document.getElementById("deleteDialog").close();
+        };//end closeDeleteDialog
+
+        self.okDeleteDialog = () => {
+            self.closeDeleteDialog();
+            
+            console.log("Yes, Delete ID : ", self.deleteDoc().id);
+            classModel.deleteClass(self.deleteDoc().id,(deleted,msg)=>{
+                if(deleted){
+                    self.msgTitle("Success Message");
+                    self.msgBody(msg);
+                    //console.log(msg);
+                } else {
+                    self.msgTitle("Error Message");
+                    self.msgBody(msg);
+                }
+                document.getElementById("msgDialog").open();
+            });
+          
+        };//end okDeleteDialog
+
         self.openAddButton = ()=>{
             self.pageTitle("Add New Classification");
             self.showTable(false);
@@ -68,7 +92,11 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
         self.deleteAction = (event,context)=>{
                 //console.log(context.item.data.id);
                 const rowID = context.item.data.id;
-                alert("Delete Button of ID : "+rowID);
+                //alert("Delete Button of ID : "+rowID);
+                self.deleteDoc(context.item.data);
+                self.deleteMsgBody("Are you sure you want to delete the classification with title : " + context.item.data.title);
+               
+                document.getElementById("deleteDialog").open();
                 
         };//end deleteAction
 

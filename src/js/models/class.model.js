@@ -66,8 +66,26 @@ define(['ojs/ojcore','jquery','knockout'],
 
             }//end updateClass
 
-            deleteClass(id){
+            deleteClass(id,notify){
+                let url_api = this.classendpoint +"/"+ id + ".json";
+                this.initializeModelCollection(url_api);
+                let classRow = new this.classModelDef({
+                    "id":id,
+                },this.classes);
 
+               //AJAX (Take Time)
+                classRow.save(null,{
+                    type: "DELETE",
+                    success : function(model,response,options){
+                        //notify(response.name);
+                        notify(true,"Classification with ID :" + id + " is Deleted Sucessfully");
+                    },
+                    //xhr = xml http request , can be use any name for example x
+                    error : function(modle,xhr,options){
+                        
+                        notify(false,`Error Code : ${xhr.status} , msg : ${options.textStatus}`);
+                    }
+                });
             }//end deleteClass
     //==================================================================================================================//         
             getAllClasses(notify){
