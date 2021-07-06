@@ -38,7 +38,12 @@
                         class='demo-table-container oj-bg-body'
                 >
                 <template slot="actionsTemplate" data-oj-as="cell">
-                    Cell Template
+                    <oj-button id="editButton" display="icons" chroming="borderless"
+                        on-oj-action="[[]]">
+                        <span slot="startIcon" class="oj-ux-ico-edit"></span>
+                        Edit
+
+                    </oj-button>
 
                 </template>
     
