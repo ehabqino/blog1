@@ -39,11 +39,15 @@
                 >
                 <template slot="actionsTemplate" data-oj-as="cell">
                     <oj-button id="editButton" display="icons" chroming="borderless"
-                        on-oj-action="[[]]">
-                        <span slot="startIcon" class="oj-ux-ico-edit"></span>
-                        Edit
-
+                        on-oj-action="[[editAction]]">
+                            <span slot="startIcon" class="oj-ux-ico-edit"></span>
+                                Edit
                     </oj-button>
+                    <oj-button id="deleteButton" display="icons" chroming="borderless"
+                    on-oj-action="[[deleteAction]]">
+                        <span slot="startIcon" class="oj-ux-ico-trash"></span>
+                            Delete
+                </oj-button>
 
                 </template>
     

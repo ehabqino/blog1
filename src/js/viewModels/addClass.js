@@ -57,6 +57,19 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
             self.showTable(true);
         }; //end openTableButton
 
+        self.deleteAction = (event,context)=>{
+                //console.log(context.item.data.id);
+                const rowID = context.item.data.id;
+                alert("Delete Button of ID : "+rowID);
+        };//end deleteAction
+
+        self.editAction = (event,context)=>{
+            const rowID = context.item.data.id;
+            const rowTitle = context.item.data.title;
+            const rowDesc = context.item.data.description;
+            alert("Row id : " + rowID + " rowTitle : " + rowTitle + " rowDesc : " + rowDesc);
+
+        };//end editAction
     }
     return addClassViewModel;
     
