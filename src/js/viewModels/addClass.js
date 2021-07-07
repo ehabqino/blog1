@@ -15,6 +15,7 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
         self.idInputDisable = ko.observable(true);
         self.deleteMsgBody = ko.observable("");
         self.deleteDoc = ko.observable(); //hold the object we want to delete it
+        self.serchValue = ko.observable();
 
         self.dataProvider = new ArrayDataProvider(self.allClasses,{
             keyAttributes:"id",
@@ -22,13 +23,27 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
         });// to receive data to table in the view
         
         //Function , Methods, Procedures
-        self.refreshAllData = ()=>{
-        classModel.getAllClasses((success,result)=>{
-            console.log(result);
-            self.allClasses(result);
-            self.allClasses.valueHasMutated(); //Notify to subscribers (Refresh)
+        self.refreshAllData = (filterValue)=>{
+        classModel.getAllClasses((success,serverresult)=>{
+            if(filterValue == undefined){
+                //console.log(result);
+                self.allClasses(serverresult);
+                self.allClasses.valueHasMutated(); //Notify to subscribers (Refresh)
+            }else {
+                //console.log("Search for " + filterValue);
+                let filteredResult = serverresult.filter(element => {
+                    if(element.title.indexOf(filterValue) != -1 || 
+                        element.description.indexOf(filterValue) != -1 ){
+                            return true;
+                        } else {
+                            return false;
+                        }
+                });
+                console.log(filteredResult);
+            }
             
         });
+
     }//end refreshAllData
     //================================================================================
         //load all data for first time page load
@@ -46,13 +61,23 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
                     self.msgBody("Saved Successfuly with ID " + msg);
                     // console.log("Print All : " ,self.allClasses());
                    // self.refreshAllData(); //First way is refresh directly from server
-                    self.allClasses().forEach((element, index)=>{
-                        if(element.id == self.id()){
-                            element.title = self.title();
-                            element.description = self.description();
-                            self.allClasses.valueHasMutated(); //to refresh
-                        }
-                    });
+                    if(self.allClasses() != undefined)
+                    {
+                        let exists = false;
+                        self.allClasses().forEach((element, index)=>{
+                                if(element.id == self.id()){
+                                    element.title = self.title();
+                                    element.description = self.description();
+                                    self.allClasses.valueHasMutated(); //to refresh
+                                    exists =true;
+                                }
+                            });
+                            if(!exists){
+                                self.allClasses().push({"id": self.id(),"title": self.title(),"description":self.description()});
+                            }
+                    } else {
+                        self.refreshAllData();
+                    }
                 } else {
                     self.msgTitle("Erro Message");
                     self.msgBody(msg);
@@ -115,6 +140,11 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
             self.idInputDisable(false);
             
         };//end openAddButton
+    //================================================================================
+        self.searchButton = ()=> {
+            //alert("serch value : " + self.serchValue());
+            self.refreshAllData(self.serchValue());
+        };//end searchButton
     //================================================================================
         self.openTableButton = ()=> {
             self.pageTitle("Classification List");

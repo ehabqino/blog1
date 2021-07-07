@@ -24,8 +24,10 @@
                         <oj-button on-oj-action="[[okDeleteDialog]]">Yes , Remove</oj-button>
                     </div>
                 </oj-dialog> 
+                <oj-input-text value="{{serchValue}}" label-hint="Search Value"></oj-input-text>
                 <div style="text-align: right;">
                     <oj-button id="openAdd" on-oj-action="[[openAddButton]]">Add New Classification</oj-button>
+                    <oj-button id="searchBtn" on-oj-action="[[searchButton]]">SEARCH</oj-button>
                 </div>
                 <oj-table id="classesTable" 
                         data="[[dataProvider]]"
