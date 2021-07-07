@@ -99,9 +99,10 @@ define(['ojs/ojcore','jquery','knockout'],
                         /* var arrObjs = Object.entries(data).map((val)=>{
                             return val[1];
                         });*///use return if use curly bracket {}
-                        var arrObjs = Object.entries(data).map((val)=>(
-                            val[1]
-                        ));//don't use return if use parentheses () 
+                        var arrObjs = Object.entries(data).map((val)=>{
+                           if(val[1] != undefined)
+                            return val[1];
+                            });//don't use return if use parentheses () 
                         console.log(arrObjs);
                         notify(true,arrObjs);
                     },

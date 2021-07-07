@@ -20,13 +20,17 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
             keyAttributes:"id",
             implicitSort:[{attribute : "id", direction:"ascending"}]
         });// to receive data to table in the view
-      
+        
         //Function , Methods, Procedures
+        self.refreshAllData = ()=>{
         classModel.getAllClasses((success,result)=>{
             console.log(result);
             self.allClasses(result);
             self.allClasses.valueHasMutated(); //Notify to subscribers (Refresh)
         });
+    }
+        //load all data for first time page load
+        self.refreshAllData();
 
         self.addClass = (event)=> {
             //alert("Add Class Button Clicked");
@@ -38,6 +42,7 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
                 if(success){
                     self.msgTitle("Success Message");
                     self.msgBody("Saved Successfuly with ID " + msg);
+                    self.refreshAllData();
                 } else {
                     self.msgTitle("Erro Message");
                     self.msgBody(msg);
@@ -68,11 +73,13 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
                     self.msgTitle("Success Message");
                     self.msgBody(msg);
                     //console.log(msg);
+                    self.refreshAllData();
                 } else {
                     self.msgTitle("Error Message");
                     self.msgBody(msg);
                 }
                 document.getElementById("msgDialog").open();
+                
             });
           
         };//end okDeleteDialog
@@ -113,6 +120,7 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
             self.description(context.item.data.description);
             self.showTable(false);
             self.idInputDisable(true);
+            self.refreshAllData();
         };//end editAction
     }
     return addClassViewModel;
