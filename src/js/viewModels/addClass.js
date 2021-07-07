@@ -29,10 +29,11 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
             self.allClasses.valueHasMutated(); //Notify to subscribers (Refresh)
             
         });
-    }
+    }//end refreshAllData
+    //================================================================================
         //load all data for first time page load
         self.refreshAllData();
-
+    //================================================================================
         self.addClass = (event)=> {
             //alert("Add Class Button Clicked");
             // res=classModel.addClass(self.id(),self.title(),self.description());
@@ -43,7 +44,15 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
                 if(success){
                     self.msgTitle("Success Message");
                     self.msgBody("Saved Successfuly with ID " + msg);
-                    self.refreshAllData();
+                    // console.log("Print All : " ,self.allClasses());
+                   // self.refreshAllData(); //First way is refresh directly from server
+                    self.allClasses().forEach((element, index)=>{
+                        if(element.id == self.id()){
+                            element.title = self.title();
+                            element.description = self.description();
+                            self.allClasses.valueHasMutated(); //to refresh
+                        }
+                    });
                 } else {
                     self.msgTitle("Erro Message");
                     self.msgBody(msg);
@@ -51,20 +60,19 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
                 
                 dialog.open();
                 self.showTable(true);
-             
-            });
-            
+                
+            });   
             
         };//end addClass
-
+    //================================================================================
         self.closeDialog = ()=> {
             document.getElementById("msgDialog").close();
         };//end closeDialog
-        
+    //================================================================================    
         self.closeDeleteDialog = ()=> {
             document.getElementById("deleteDialog").close();
         };//end closeDeleteDialog
-
+    //================================================================================
         self.okDeleteDialog = () => {
             self.closeDeleteDialog();
             
@@ -98,32 +106,32 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
                 document.getElementById("msgDialog").open();
                 
             });
-          
+            
         };//end okDeleteDialog
-
+    //================================================================================
         self.openAddButton = ()=>{
             self.pageTitle("Add New Classification");
             self.showTable(false);
             self.idInputDisable(false);
             
         };//end openAddButton
-
+    //================================================================================
         self.openTableButton = ()=> {
             self.pageTitle("Classification List");
             self.showTable(true);
         }; //end openTableButton
-
+    //================================================================================
         self.deleteAction = (event,context)=>{
                 //console.log(context.item.data.id);
                 const rowID = context.item.data.id;
                 //alert("Delete Button of ID : "+rowID);
                 self.deleteDoc(context.item.data);
                 self.deleteMsgBody("Are you sure you want to delete the classification with title : " + context.item.data.title);
-               
+
                 document.getElementById("deleteDialog").open();
                 
         };//end deleteAction
-
+    //================================================================================
         self.editAction = (event,context)=>{
             /*
             const rowID = context.item.data.id;
@@ -139,7 +147,9 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
             self.idInputDisable(true);
             self.refreshAllData();
         };//end editAction
-    }
+    //================================================================================
+    
+    }//end addClassViewModel
     return addClassViewModel;
     
 });
