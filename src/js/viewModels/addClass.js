@@ -27,6 +27,7 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
             console.log(result);
             self.allClasses(result);
             self.allClasses.valueHasMutated(); //Notify to subscribers (Refresh)
+            
         });
     }
         //load all data for first time page load
@@ -73,7 +74,23 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
                     self.msgTitle("Success Message");
                     self.msgBody(msg);
                     //console.log(msg);
-                    self.refreshAllData();
+                    //self.refreshAllData(); //the first way to direct refresh after delete item from server 
+
+                    //Second way to refresh is refresh data localy
+                    if(self.allClasses() != undefined){
+                        self.allClasses().forEach((element,index )=> {
+                            if(element.id == self.deleteDoc().id ){
+                                self.allClasses().splice(index,1);
+                                self.allClasses.valueHasMutated(); //notify subscribers (Refresh)
+                            }
+                            
+                        });
+
+                    } else {
+                        self.refreshAllData();//if allClasses is empty we get data from server direct
+                    }
+
+
                 } else {
                     self.msgTitle("Error Message");
                     self.msgBody(msg);
