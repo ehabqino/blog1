@@ -99,10 +99,15 @@ define(['ojs/ojcore','jquery','knockout'],
                         /* var arrObjs = Object.entries(data).map((val)=>{
                             return val[1];
                         });*///use return if use curly bracket {}
+
+                        //format result from server to as table array provider    
                         var arrObjs = Object.entries(data).map((val)=>{
-                           if(val[1] != undefined)
+                           //if(val[1] != undefined)
                             return val[1];
                             });//don't use return if use parentheses () 
+                        //remove any null element in array
+                        arrObjs = arrObjs.filter(element => element != null);
+
                         console.log(arrObjs);
                         notify(true,arrObjs);
                     },
