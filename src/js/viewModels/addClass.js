@@ -28,20 +28,23 @@ function(oj,ko,$,classModel,ArrayDataProvider) {
             if(filterValue == undefined){
                 //console.log(result);
                 self.allClasses(serverresult);
-                self.allClasses.valueHasMutated(); //Notify to subscribers (Refresh)
+                
             }else {
                 //console.log("Search for " + filterValue);
+
+                //filteredResult contain all values that returns true
                 let filteredResult = serverresult.filter(element => {
-                    if(element.title.indexOf(filterValue) != -1 || 
-                        element.description.indexOf(filterValue) != -1 ){
+                    if(element.title.toLowerCase().indexOf(filterValue.toLowerCase()) != -1 || 
+                        element.description.toLowerCase().indexOf(filterValue.toLowerCase()) != -1 ){
                             return true;
                         } else {
                             return false;
                         }
                 });
-                console.log(filteredResult);
+               // console.log(filteredResult);
+               self.allClasses(filteredResult);
             }
-            
+            self.allClasses.valueHasMutated(); //Notify to subscribers (Refresh)
         });
 
     }//end refreshAllData
